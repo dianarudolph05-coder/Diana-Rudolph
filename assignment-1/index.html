@@ -1,17 +1,249 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2575.7">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times; -webkit-text-stroke: #000000; min-height: 14.0px}
-    span.s1 {font-kerning: none}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Interactive Calculator — Diana Rudolph</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --mint-light: #F0FFF1;
+      --mint-mid: #C2F8CB;
+      --mint-dark: #B3E9C7;
+      --purple-light: #8367C7;
+      --purple-dark: #5603AD;
+      --text-dark: #1a1a2e;
+    }
+    body {
+      background: var(--mint-light);
+      color: var(--text-dark);
+      font-family: 'DM Sans', sans-serif;
+      min-height: 100vh;
+    }
+    header {
+      background: var(--purple-dark);
+      padding: 2rem;
+      text-align: center;
+    }
+    header a {
+      color: var(--mint-mid);
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-decoration: none;
+    }
+    header h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 2rem;
+      color: #fff;
+      margin-top: 0.5rem;
+    }
+    .divider {
+      height: 6px;
+      background: linear-gradient(90deg, var(--mint-dark), var(--purple-light), var(--purple-dark));
+    }
+    main {
+      max-width: 600px;
+      margin: 2.5rem auto;
+      padding: 0 1.5rem 4rem;
+    }
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      border: 1.5px solid var(--mint-dark);
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 2px 12px rgba(86,3,173,0.07);
+    }
+    .card h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400;
+      font-size: 1.3rem;
+      color: var(--purple-dark);
+      margin-bottom: 1.25rem;
+    }
+    .input-row {
+      display: flex;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      flex: 1;
+      min-width: 120px;
+    }
+    label {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--purple-light);
+    }
+    input[type="text"], input[type="number"] {
+      padding: 0.6rem 0.85rem;
+      border: 1.5px solid var(--mint-dark);
+      border-radius: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      color: var(--text-dark);
+      background: var(--mint-light);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    input:focus { border-color: var(--purple-light); }
+    button {
+      background: var(--purple-dark);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 0.65rem 1.5rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-top: 0.5rem;
+    }
+    button:hover { background: var(--purple-light); }
+    .results { margin-top: 1.25rem; display: none; }
+    .results.visible { display: block; }
+    .result-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; }
+    .result-item {
+      background: var(--mint-light);
+      border: 1px solid var(--mint-dark);
+      border-radius: 8px;
+      padding: 0.6rem 0.85rem;
+      font-size: 0.85rem;
+    }
+    .result-item span { color: var(--purple-dark); font-weight: 500; }
+    .greeting-box {
+      background: var(--mint-light);
+      border: 1px solid var(--mint-dark);
+      border-radius: 8px;
+      padding: 0.85rem 1rem;
+      font-size: 0.95rem;
+      margin-top: 0.75rem;
+      display: none;
+    }
+    .greeting-box.visible { display: block; }
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      color: #aaa;
+      text-transform: uppercase;
+      border-top: 1px solid var(--mint-dark);
+    }
   </style>
 </head>
 <body>
-<p class="p1"><span class="s1"></span><br></p>
+  <header>
+    <a href="../">&#8592; Back to portfolio</a>
+    <h1>Interactive Calculator</h1>
+  </header>
+  <div class="divider"></div>
+  <main>
+    <div class="card">
+      <h2>Who are you?</h2>
+      <div class="input-row">
+        <div class="input-group">
+          <label>Your name</label>
+          <input type="text" id="name" placeholder="e.g. Diana" />
+        </div>
+        <div class="input-group">
+          <label>Your age</label>
+          <input type="number" id="age" placeholder="e.g. 20" />
+        </div>
+      </div>
+      <button onclick="greet()">Say hello &#8594;</button>
+      <div class="greeting-box" id="greeting-out"></div>
+    </div>
+    <div class="card">
+      <h2>Two integers</h2>
+      <div class="input-row">
+        <div class="input-group">
+          <label>Integer A</label>
+          <input type="number" id="a" placeholder="e.g. 12" />
+        </div>
+        <div class="input-group">
+          <label>Integer B</label>
+          <input type="number" id="b" placeholder="e.g. 4" />
+        </div>
+      </div>
+      <button onclick="calcIntegers()">Calculate &#8594;</button>
+      <div class="results" id="int-results">
+        <div class="result-grid" id="int-grid"></div>
+      </div>
+    </div>
+    <div class="card">
+      <h2>Decimal number</h2>
+      <div class="input-row">
+        <div class="input-group">
+          <label>Value X</label>
+          <input type="number" id="x" placeholder="e.g. 3.14" step="any" />
+        </div>
+      </div>
+      <button onclick="calcDecimal()">Calculate &#8594;</button>
+      <div class="results" id="dec-results">
+        <div class="result-grid" id="dec-grid"></div>
+      </div>
+    </div>
+  </main>
+  <footer>ARTG 2262 — Diana Rudolph</footer>
+  <script>
+    function greet() {
+      const name = document.getElementById('name').value.trim();
+      const age = parseInt(document.getElementById('age').value);
+      const box = document.getElementById('greeting-out');
+      if (!name) { box.textContent = 'Please enter your name!'; box.classList.add('visible'); return; }
+      const birthyear = 2026 - age;
+      box.innerHTML = `Welcome <strong>${name}</strong>, it's a pleasure to greet you! 😊<br>You must have been born around <strong>${birthyear}</strong>, right?`;
+      box.classList.add('visible');
+    }
+    function calcIntegers() {
+      const a = Number(document.getElementById('a').value);
+      const b = Number(document.getElementById('b').value);
+      const grid = document.getElementById('int-grid');
+      const results = document.getElementById('int-results');
+      const items = [
+        [`${a} + ${b}`, a + b],
+        [`${a} - ${b}`, a - b],
+        [`${a} × ${b}`, a * b],
+        [`${a} / ${b}`, (a / b).toFixed(4)],
+        [`${a} % ${b}`, a % b],
+        [`max(${a}, ${b})`, Math.max(a, b)],
+        [`min(${a}, ${b})`, Math.min(a, b)],
+      ];
+      grid.innerHTML = items.map(([label, val]) =>
+        `<div class="result-item">${label} = <span>${val}</span></div>`
+      ).join('');
+      results.classList.add('visible');
+    }
+    function calcDecimal() {
+      const x = Number(document.getElementById('x').value);
+      const grid = document.getElementById('dec-grid');
+      const results = document.getElementById('dec-results');
+      const items = [
+        [`-${x}`, -x],
+        [`sin(${x})`, Math.sin(x).toFixed(6)],
+        [`cos(${x})`, Math.cos(x).toFixed(6)],
+        [`${x}^10`, Math.pow(x, 10).toFixed(4)],
+        [`√${x}`, Math.sqrt(x).toFixed(6)],
+        [`round(${x})`, Math.round(x)],
+        [`floor(${x})`, Math.floor(x)],
+        [`ceil(${x})`, Math.ceil(x)],
+        [`|${x}|`, Math.abs(x)],
+      ];
+      grid.innerHTML = items.map(([label, val]) =>
+        `<div class="result-item">${label} = <span>${val}</span></div>`
+      ).join('');
+      results.classList.add('visible');
+    }
+  </script>
 </body>
 </html>
