@@ -1,24 +1,277 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <title>Diana's ARTG 2262 Homework</title>
-  <style type="text/css">
-    li.li2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times; color: #0000e9; -webkit-text-stroke: #0000e9}
-    span.s1 {font-kerning: none}
-    span.s2 {-webkit-text-stroke: 0px #000000}
-    span.s3 {text-decoration: underline ; font-kerning: none}
-    ul.ul1 {list-style-type: disc}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Diana Rudolph — ARTG 2262</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --mint-light: #F0FFF1;
+      --mint-mid: #C2F8CB;
+      --mint-dark: #B3E9C7;
+      --purple-light: #8367C7;
+      --purple-dark: #5603AD;
+      --text-dark: #1a1a2e;
+      --text-mid: #3d3d5c;
+    }
+
+    body {
+      background: var(--mint-light);
+      color: var(--text-dark);
+      font-family: 'DM Sans', sans-serif;
+      min-height: 100vh;
+    }
+
+    header {
+      background: var(--purple-dark);
+      padding: 4rem 2rem 3rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      top: -60px; left: -60px;
+      width: 220px; height: 220px;
+      border-radius: 50%;
+      background: var(--purple-light);
+      opacity: 0.3;
+    }
+
+    header::after {
+      content: '';
+      position: absolute;
+      bottom: -80px; right: -40px;
+      width: 280px; height: 280px;
+      border-radius: 50%;
+      background: var(--mint-mid);
+      opacity: 0.15;
+    }
+
+    .header-tag {
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--mint-mid);
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      color: #fff;
+      line-height: 1.1;
+      margin-bottom: 0.5rem;
+    }
+
+    h1 em {
+      font-style: italic;
+      color: var(--mint-mid);
+    }
+
+    header p {
+      font-size: 0.9rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.6);
+      margin-top: 0.75rem;
+      letter-spacing: 0.05em;
+    }
+
+    .divider {
+      height: 6px;
+      background: linear-gradient(90deg, var(--mint-dark), var(--purple-light), var(--purple-dark));
+    }
+
+    main {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 3rem 2rem 5rem;
+    }
+
+    .section-label {
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--purple-light);
+      margin-bottom: 1.5rem;
+    }
+
+    .hw-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .hw-list a {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 1.5rem;
+      background: #fff;
+      border-radius: 12px;
+      text-decoration: none;
+      color: var(--text-dark);
+      border: 1.5px solid var(--mint-dark);
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 8px rgba(86, 3, 173, 0.06);
+    }
+
+    .hw-list a:hover {
+      border-color: var(--purple-light);
+      box-shadow: 0 4px 20px rgba(86, 3, 173, 0.12);
+      transform: translateY(-2px);
+    }
+
+    .hw-left {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .hw-number {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--mint-light);
+      border: 1.5px solid var(--mint-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      color: var(--purple-dark);
+      flex-shrink: 0;
+    }
+
+    .hw-list a:hover .hw-number {
+      background: var(--purple-dark);
+      border-color: var(--purple-dark);
+      color: #fff;
+    }
+
+    .hw-title {
+      font-size: 1rem;
+      font-weight: 400;
+    }
+
+    .hw-subtitle {
+      font-size: 0.75rem;
+      color: #999;
+      margin-top: 2px;
+      font-weight: 300;
+    }
+
+    .hw-arrow {
+      color: var(--mint-dark);
+      font-size: 1.1rem;
+      transition: transform 0.2s, color 0.2s;
+    }
+
+    .hw-list a:hover .hw-arrow {
+      transform: translateX(4px);
+      color: var(--purple-light);
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      color: #aaa;
+      text-transform: uppercase;
+      border-top: 1px solid var(--mint-dark);
+    }
   </style>
 </head>
 <body>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px Times; -webkit-text-stroke: #000000"><span class="s1"><b>Welcome to my </b><b><i>ARTG 2262: Prototyping with Code</i></b><b> homework!</b></span></h1>
-<ul class="ul1">
-  <li class="li2"><span class="s2"><a href="assignment-0/"><span class="s3">Assignment[0] = Frozen</span></a></span></li>
-  <li class="li2"><span class="s2"><a href="assignment-1/"><span class="s3">Assignment[1] = Interactive Calculator</span></a></span></li>
-  <li class="li2"><span class="s2"><a href="assignment-2/"><span class="s3">Assignment[2] = Self Portrait</span></a></span></li>
-  <li class="li2"><span class="s2"><a href="assignment-3/"><span class="s3">Assignment[3] = Screensaver</span></a></span></li>
-  <li class="li2"><span class="s2"><a href="assignment-4/"><span class="s3">Assignment[4] = Drawing App</span></a></span></li>
-</ul>
+
+  <header>
+    <p class="header-tag">Northeastern University &mdash; ARTG 2262</p>
+    <h1>Diana Rudolph<br><em>Prototyping with Code</em></h1>
+    <p>A collection of creative coding assignments made with p5.js</p>
+  </header>
+
+  <div class="divider"></div>
+
+  <main>
+    <p class="section-label">Assignments</p>
+
+    <ul class="hw-list">
+      <li>
+        <a href="assignment-0/">
+          <span class="hw-left">
+            <span class="hw-number">0</span>
+            <span>
+              <div class="hw-title">Frozen</div>
+              <div class="hw-subtitle">Hour of Code</div>
+            </span>
+          </span>
+          <span class="hw-arrow">&#8594;</span>
+        </a>
+      </li>
+      <li>
+        <a href="assignment-1/">
+          <span class="hw-left">
+            <span class="hw-number">1</span>
+            <span>
+              <div class="hw-title">Interactive Calculator</div>
+              <div class="hw-subtitle">Variables &amp; user input</div>
+            </span>
+          </span>
+          <span class="hw-arrow">&#8594;</span>
+        </a>
+      </li>
+      <li>
+        <a href="assignment-2/">
+          <span class="hw-left">
+            <span class="hw-number">2</span>
+            <span>
+              <div class="hw-title">Self Portrait</div>
+              <div class="hw-subtitle">Shapes &amp; drawing</div>
+            </span>
+          </span>
+          <span class="hw-arrow">&#8594;</span>
+        </a>
+      </li>
+      <li>
+        <a href="assignment-3/">
+          <span class="hw-left">
+            <span class="hw-number">3</span>
+            <span>
+              <div class="hw-title">Screensaver</div>
+              <div class="hw-subtitle">Patterns &amp; color</div>
+            </span>
+          </span>
+          <span class="hw-arrow">&#8594;</span>
+        </a>
+      </li>
+      <li>
+        <a href="assignment-4/">
+          <span class="hw-left">
+            <span class="hw-number">4</span>
+            <span>
+              <div class="hw-title">Drawing App</div>
+              <div class="hw-subtitle">Interaction &amp; input</div>
+            </span>
+          </span>
+          <span class="hw-arrow">&#8594;</span>
+        </a>
+      </li>
+    </ul>
+  </main>
+
+  <footer>
+    Made with p5.js &mdash; Hosted on GitHub Pages
+  </footer>
+
 </body>
 </html>
